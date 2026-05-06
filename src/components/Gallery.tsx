@@ -1,34 +1,12 @@
+import { motion } from "motion/react";
 import { Reveal } from "./Reveal";
+import { galleryItems, DetailsModalData } from "../constants/data";
 
-const galleryImages = [
-  {
-    src: "https://i.postimg.cc/yNnZbWxH/summit-002.png",
-    title: "Client Meetings",
-    class: "md:row-span-2",
-  },
-  {
-    src: "https://i.postimg.cc/GtFmrMnR/meeting-01.jpg",
-    title: "Project Discussions",
-    class: "md:col-span-2",
-  },
-  {
-    src: "https://i.postimg.cc/fRZ2pWTF/image.png",
-    title: "Innovative Workspaces",
-    class: "",
-  },
-  {
-    src: "https://i.postimg.cc/P5pWSB1M/Gemini-Generated-Image-d1vos1d1vos1d1vo.png",
-    title: "Team Collaboration",
-    class: "",
-  },
-  {
-    src: "https://i.postimg.cc/zXSZVcyn/image.png",
-    title: "Final Product Reviews",
-    class: "md:col-span-2",
-  },
-];
+interface GalleryProps {
+  onGalleryClick: (data: DetailsModalData) => void;
+}
 
-export const Gallery = () => {
+export const Gallery = ({ onGalleryClick }: GalleryProps) => {
   return (
     <section id="gallery" className="py-24 bg-slate-50">
       <div className="container mx-auto px-6">
@@ -41,20 +19,33 @@ export const Gallery = () => {
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
-          {galleryImages.map((image, index) => (
-            <Reveal key={index} delay={index * 0.1} className={image.class}>
-              <div className="relative group h-full overflow-hidden rounded-[32px] cursor-pointer">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 auto-rows-fr">
+          {galleryItems.map((item, index) => (
+            <Reveal key={item.title} delay={index * 0.1}>
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                onClick={() =>
+                  onGalleryClick({
+                    title: item.title,
+                    subtitle: "Gallery Highlight",
+                    image: item.image,
+                    details: item.description,
+                  })
+                }
+                className="relative w-full aspect-square overflow-hidden rounded-[24px] cursor-pointer border border-slate-200 bg-slate-50 p-0"
+              >
                 <img
-                  src={image.src}
-                  alt={image.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
-                  <h4 className="text-xl font-bold text-white">{image.title}</h4>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-80 md:opacity-0 md:hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
+                  <h4 className="text-sm md:text-lg font-bold text-white leading-tight">{item.title}</h4>
                 </div>
-              </div>
+              </motion.button>
             </Reveal>
           ))}
         </div>

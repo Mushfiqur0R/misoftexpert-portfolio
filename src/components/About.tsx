@@ -1,22 +1,12 @@
 import { Reveal } from "./Reveal";
 import { Github, Facebook, Mail } from "lucide-react";
+import { founders, DetailsModalData } from "../constants/data";
 
-const founders = [
-  {
-    name: "Musfikur Rahman",
-    role: "Founder",
-    email: "musfik@misoftexpert.cloud",
-    image: "https://i.postimg.cc/BQz5Kn2T/image.png",
-  },
-  {
-    name: "Engr. Iqram H Uzzol",
-    role: "Founder",
-    email: "uzzol@misoftexpert.cloud",
-    image: "https://i.postimg.cc/vZHBbr4n/image.png",
-  },
-];
+interface AboutProps {
+  onFounderClick: (founder: DetailsModalData) => void;
+}
 
-export const About = () => {
+export const About = ({ onFounderClick }: AboutProps) => {
   return (
     <section id="about" className="py-24 bg-white">
       <div className="container mx-auto px-6">
@@ -53,11 +43,14 @@ export const About = () => {
             <div className="relative">
               <div className="absolute -inset-4 bg-brand-primary/10 rounded-3xl blur-2xl -z-10" />
               <img
-                src="https://picsum.photos/seed/office-space/800/600"
-                alt="Our Workspace"
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+                alt="Coding Workspace"
                 className="w-full rounded-2xl shadow-xl shadow-slate-200"
                 referrerPolicy="no-referrer"
               />
+              <div className="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-mono">
+                &lt; / Code the Future &gt;
+              </div>
             </div>
           </Reveal>
         </div>
@@ -65,7 +58,18 @@ export const About = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {founders.map((founder, index) => (
             <Reveal key={founder.name} delay={0.2 * index}>
-              <div className="group relative bg-slate-50 rounded-3xl p-8 border border-slate-200 hover:border-brand-primary transition-colors overflow-hidden">
+              <button
+                type="button"
+                onClick={() =>
+                  onFounderClick({
+                    title: founder.name,
+                    subtitle: founder.role,
+                    image: founder.image,
+                    details: `${founder.bio} ${founder.details}`,
+                  })
+                }
+                className="group relative text-left bg-slate-50 rounded-3xl p-8 border border-slate-200 hover:border-brand-primary transition-colors overflow-hidden w-full"
+              >
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   <div className="relative w-32 h-32 flex-shrink-0">
                     <img
@@ -88,7 +92,7 @@ export const About = () => {
                     </a>
                   </div>
                 </div>
-              </div>
+              </button>
             </Reveal>
           ))}
         </div>

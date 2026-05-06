@@ -20,6 +20,7 @@ export const Navbar = () => {
     { name: "Products", href: "#products" },
     { name: "Portfolio", href: "#portfolio" },
     { name: "Gallery", href: "#gallery" },
+    { name: "Reviews", href: "#reviews" },
     { name: "Contact", href: "#contact" },
   ];
 

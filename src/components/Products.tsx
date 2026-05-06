@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { Reveal } from "./Reveal";
-import { Package, Smartphone, ExternalLink, Timer } from "lucide-react";
+import { Package, Smartphone, ExternalLink, Timer, X, ArrowRight } from "lucide-react";
 
 const products = [
   {
@@ -9,6 +10,8 @@ const products = [
     link: "https://ams.misoftexpert.cloud",
     status: "Live Demo Available",
     isComingSoon: false,
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    details: "Our AMS system provides comprehensive account management, inventory tracking, sales analytics, and reporting tools. Built with modern web technologies for scalability and security.",
   },
   {
     title: "POS Software",
@@ -17,6 +20,8 @@ const products = [
     link: "#",
     status: "Live Demo Coming Soon",
     isComingSoon: true,
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
+    details: "Modern POS solution with inventory integration, customer management, and real-time analytics. Perfect for retail businesses looking to optimize their operations.",
   },
   {
     title: "Websites & E-Commerce Solutions",
@@ -25,57 +30,130 @@ const products = [
     link: "#",
     status: "Service Available",
     isComingSoon: false,
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    details: "Custom web development services including e-commerce platforms, business websites, and web applications. We use the latest technologies to deliver fast, secure, and user-friendly solutions.",
   },
 ];
 
 export const Products = () => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (product) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
   return (
-    <section id="products" className="py-24 bg-slate-50">
-      <div className="container mx-auto px-6">
-        <Reveal>
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-4">Our Powerful Solutions</h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              We create specialized tools designed to streamline your business operations and fuel your digital growth.
-            </p>
-          </div>
-        </Reveal>
+    <>
+      <section id="products" className="py-24 bg-slate-50">
+        <div className="container mx-auto px-6">
+          <Reveal>
+            <div className="text-center mb-16">
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-slate-900 mb-4">Our Powerful Solutions</h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                We create specialized tools designed to streamline your business operations and fuel your digital growth.
+              </p>
+            </div>
+          </Reveal>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
-            <Reveal key={product.title} delay={0.2 * index}>
-              <div className="group h-full bg-white p-10 rounded-[32px] border border-slate-200 hover:border-brand-primary hover:shadow-2xl hover:shadow-brand-primary/10 transition-all flex flex-col">
-                <div className="mb-8 p-4 rounded-2xl bg-slate-50 group-hover:bg-brand-primary/10 transition-colors w-fit text-brand-primary">
-                  {product.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">{product.title}</h3>
-                <p className="text-slate-600 mb-8 flex-grow leading-relaxed">
-                  {product.description}
-                </p>
-                
-                <div className="flex flex-col gap-4">
-                   <div className={`inline-flex items-center gap-2 text-sm font-medium ${product.isComingSoon ? 'text-amber-600' : 'text-emerald-600'}`}>
-                    {product.isComingSoon ? <Timer className="w-4 h-4" /> : <div className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />}
-                    {product.status}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {products.map((product, index) => (
+              <Reveal key={product.title} delay={0.2 * index}>
+                <div
+                  className="group h-full bg-white p-10 rounded-[32px] border border-slate-200 hover:border-brand-primary hover:shadow-2xl hover:shadow-brand-primary/10 transition-all flex flex-col cursor-pointer"
+                  onClick={() => openModal(product)}
+                >
+                  <div className="mb-8 p-4 rounded-2xl bg-slate-50 group-hover:bg-brand-primary/10 transition-colors w-fit text-brand-primary">
+                    {product.icon}
                   </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-4">{product.title}</h3>
+                  <p className="text-slate-600 mb-8 flex-grow leading-relaxed">
+                    {product.description}
+                  </p>
+                  
+                  <div className="flex flex-col gap-4">
+                     <div className={`inline-flex items-center gap-2 text-sm font-medium ${product.isComingSoon ? 'text-amber-600' : 'text-emerald-600'}`}>
+                      {product.isComingSoon ? <Timer className="w-4 h-4" /> : <div className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />}
+                      {product.status}
+                    </div>
 
-                  {!product.isComingSoon && product.link !== "#" && (
-                    <a
-                      href={product.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-brand-primary font-bold hover:underline"
-                    >
-                      Visit Live Demo
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
+                    {!product.isComingSoon && product.link !== "#" && (
+                      <a
+                        href={product.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-brand-primary font-bold hover:underline"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Visit Live Demo
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Modal */}
+      {isModalOpen && selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-8">
+              <div className="flex justify-between items-start mb-6">
+                <div className="p-4 rounded-2xl bg-brand-primary/10 text-brand-primary w-fit">
+                  {selectedProduct.icon}
+                </div>
+                <button
+                  onClick={closeModal}
+                  className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.title}
+                className="w-full h-64 object-cover rounded-2xl mb-6"
+                referrerPolicy="no-referrer"
+              />
+
+              <h3 className="text-3xl font-bold text-slate-900 mb-4">{selectedProduct.title}</h3>
+              <p className="text-slate-600 mb-6 leading-relaxed">{selectedProduct.details}</p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {!selectedProduct.isComingSoon && selectedProduct.link !== "#" && (
+                  <a
+                    href={selectedProduct.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 px-6 py-3 bg-brand-primary text-white rounded-xl font-medium hover:bg-brand-primary/90 transition-colors flex items-center justify-center gap-2"
+                  >
+                    Live Demo
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                )}
+                <a
+                  href="#contact"
+                  onClick={closeModal}
+                  className="flex-1 px-6 py-3 bg-slate-100 text-slate-900 rounded-xl font-medium hover:bg-slate-200 transition-colors flex items-center justify-center"
+                >
+                  Get in Touch
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };

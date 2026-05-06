@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Github, Facebook, Code2 } from "lucide-react";
+import { Phone, Mail, MapPin, Github, Facebook, Code2, MessageCircle } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -16,10 +16,10 @@ export const Footer = () => {
               Transforming your ideas into powerful digital solutions. We build software that drives growth.
             </p>
             <div className="flex gap-4">
-              <a href="https://github.com/Mushfiqur0R" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-brand-primary transition-colors">
+              <a href="https://github.com/Mushfiqur0R" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-brand-primary transition-colors">
                 <Github className="w-5 h-5" />
               </a>
-              <a href="https://www.facebook.com/mushfiqA10" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-brand-primary transition-colors">
+              <a href="https://www.facebook.com/mushfiqA10" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-brand-primary transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
             </div>
@@ -32,7 +32,21 @@ export const Footer = () => {
                 <Phone className="w-5 h-5 text-brand-primary" />
                 <div>
                   <p className="text-white font-medium">Hotline</p>
-                  <a href="tel:+8809611412685" className="hover:text-brand-primary transition-colors">+880 961 141 2685</a>
+                  <a href="tel:+8809611412685" className="block hover:text-brand-primary transition-colors">+8809611412685</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MessageCircle className="w-5 h-5 text-green-600" />
+                <div>
+                  <p className="text-white font-medium">Support</p>
+                  <a href="tel:+8801760629449" className="block hover:text-brand-primary transition-colors">+8801760629449</a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MessageCircle className="w-5 h-5 text-green-600" />
+                <div>
+                  <p className="text-white font-medium">Technical</p>
+                  <a href="tel:+8801794275382" className="block hover:text-brand-primary transition-colors">+8801794275382</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -54,6 +68,7 @@ export const Footer = () => {
               <li><a href="#products" className="hover:text-brand-primary transition-colors">Products</a></li>
               <li><a href="#portfolio" className="hover:text-brand-primary transition-colors">Portfolio</a></li>
               <li><a href="#gallery" className="hover:text-brand-primary transition-colors">Gallery</a></li>
+              <li><a href="#reviews" className="hover:text-brand-primary transition-colors">Reviews</a></li>
             </ul>
           </div>
 

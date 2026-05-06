@@ -16,6 +16,9 @@
   body {
     @apply bg-slate-50 text-slate-900 antialiased;
   }
+  section {
+    scroll-margin-top: 100px;
+  }
 }
 
 .glass {
